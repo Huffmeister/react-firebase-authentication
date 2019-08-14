@@ -1,34 +1,48 @@
 import React from 'react';
 
-import { Link } from 'react-router-dom';
 import * as ROUTES from '../../constants/routes';
-import styled from "styled-components";
-
-const StyledDiv = styled.div`
-    background: papayawhip;
-`;
+import { Link } from 'react-router-dom';
+import { Nav, Navbar } from 'react-bootstrap';
 
 
 const Navigation = () => (
-    <StyledDiv>
-        <ul>
-            <li>
-                <Link to={ROUTES.SIGN_IN}>Sign In</Link>
-            </li>
-            <li>
-                <Link to={ROUTES.LANDING}>Landing</Link>
-            </li>
-            <li>
-                <Link to={ROUTES.HOME}>Home</Link>
-            </li>
-            <li>
-                <Link to={ROUTES.ACCOUNT}>Account</Link>
-            </li>
-            <li>
-                <Link to={ROUTES.ADMIN}>Admin</Link>
-            </li>
-        </ul>
-    </StyledDiv>
+    <>
+        <Navbar bg="dark" variant="dark">
+            <Navbar.Brand href="#home">
+                <img
+                    alt=""
+                    src="/logo.svg"
+                    width="30"
+                    height="30"
+                    className="d-inline-block align-top"
+                />
+                {' React Bootstrap'}
+            </Navbar.Brand>
+            <Navbar.Collapse className="d-flex justify-content-end">
+                <Nav
+                    activeKey="/home"
+                    className="d-flex justify-content-end"
+                    onSelect={selectedKey => alert(`selected ${selectedKey}`)}
+                >
+                    <Nav.Item>
+                        <Nav.Link as={Link} to={ROUTES.LANDING}>Landing</Nav.Link>
+                    </Nav.Item>
+                    <Nav.Item>
+                        <Nav.Link as={Link} to={ROUTES.HOME}>Home</Nav.Link>
+                    </Nav.Item>
+                    <Nav.Item>
+                        <Nav.Link as={Link} to={ROUTES.ACCOUNT}>Account</Nav.Link>
+                    </Nav.Item>
+                    <Nav.Item>
+                        <Nav.Link as={Link} to={ROUTES.ADMIN}>Admin</Nav.Link>
+                    </Nav.Item>
+                    <Nav.Item>
+                        <Nav.Link as={Link} to={ROUTES.SIGN_IN}>Sign In</Nav.Link>
+                    </Nav.Item>
+                </Nav>
+            </Navbar.Collapse>
+        </Navbar>
+    </>
 );
 
 export default Navigation;
