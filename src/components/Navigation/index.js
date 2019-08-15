@@ -2,7 +2,11 @@ import React from 'react';
 
 import * as ROUTES from '../../constants/routes';
 import { Link } from 'react-router-dom';
+
+import SignOutButton from '../SignOut';
+
 import { Nav, Navbar } from 'react-bootstrap';
+
 
 
 const Navigation = () => (
@@ -37,6 +41,9 @@ const Navigation = () => (
                     </Nav.Item>
                     <Nav.Item>
                         <Nav.Link as={Link} to={ROUTES.SIGN_IN}>Sign In</Nav.Link>
+                    </Nav.Item>
+                    <Nav.Item>
+                        <SignOutButton/>
                     </Nav.Item>
                 </Nav>
             </Navbar.Collapse>
