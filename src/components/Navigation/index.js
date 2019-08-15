@@ -6,8 +6,7 @@ import { Nav, Navbar } from 'react-bootstrap';
 
 
 const Navigation = () => (
-    <>
-        <Navbar bg="dark" variant="dark">
+        <Navbar sticky="top" bg="dark" variant="dark">
             <Navbar.Brand href="#home">
                 <img
                     alt=""
@@ -42,7 +41,6 @@ const Navigation = () => (
                 </Nav>
             </Navbar.Collapse>
         </Navbar>
-    </>
 );
 
 export default Navigation;

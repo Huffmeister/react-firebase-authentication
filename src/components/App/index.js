@@ -20,8 +20,8 @@ import Container from 'react-bootstrap/Container';
 
 const App = () => (
     <Router>
+        <Navigation />
         <Container>
-            <Navigation />
             <hr />
             <Route exact path={ROUTES.LANDING} component={LandingPage} />
             <Route path={ROUTES.SIGN_UP} component={SignUpPage} />
