@@ -3,6 +3,7 @@ import { withRouter } from 'react-router-dom';
 import { compose } from 'recompose';
 
 import { SignUpLink } from '../SignUp';
+import { PasswordForgetLink} from "../PasswordForget";
 import { withFirebase } from '../Firebase';
 import * as ROUTES from '../../constants/routes';
 
@@ -11,7 +12,13 @@ import {Form, Button, Container, Alert, Row, Col} from 'react-bootstrap';
 const SignInPage = () => (
     <div>
         <h1>SignIn</h1>
-        <SignInForm />
+        <Container>
+            <Row className="justify-content-md-center">
+                <Col className="col-6">
+                    <SignInForm />
+                </Col>
+            </Row>
+        </Container>
     </div>
 );
 
@@ -54,39 +61,30 @@ class SignInFormBase extends Component {
         const isInvalid = password === '' || email === '';
 
         return (
-            <Container>
-                <Row className="justify-content-md-center">
-                    <Col className="col-6">
-                        <Form className="border bg-light p-3" onSubmit={this.onSubmit}>
-                            <Form.Control
-                                name="email"
-                                value={email}
-                                onChange={this.onChange}
-                                type="text"
-                                placeholder="Email Address"
-                            />
-                            <Form.Control
-                                className={"mt-1"}
-                                name="password"
-                                value={password}
-                                onChange={this.onChange}
-                                type="password"
-                                placeholder="Password"
-                            />
-                            <Button className="mt-2" disabled={isInvalid} type="submit">
-                                Sign In
-                            </Button>
-                            <hr/>
-                            <SignUpLink />
-                        </Form>
-                    </Col>
-                </Row>
-                <Row className="justify-content-md-center mt-3">
-                    <Col className="col-6">
-                        {error && <Alert variant="danger">{error.message}</Alert>}
-                    </Col>
-                </Row>
-            </Container>
+            <Form className="border bg-light p-3" onSubmit={this.onSubmit}>
+                <Form.Control
+                    name="email"
+                    value={email}
+                    onChange={this.onChange}
+                    type="text"
+                    placeholder="Email Address"
+                />
+                <Form.Control
+                    className={"mt-1"}
+                    name="password"
+                    value={password}
+                    onChange={this.onChange}
+                    type="password"
+                    placeholder="Password"
+                />
+                <Button className="mt-2" disabled={isInvalid} type="submit">
+                    Sign In
+                </Button>
+                <hr/>
+                <PasswordForgetLink/>
+                <SignUpLink/>
+                {error && <Alert className="mt-3" variant="danger">{error.message}</Alert>}
+            </Form>
         );
     }
 }
