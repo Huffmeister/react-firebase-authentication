@@ -3,36 +3,43 @@ import React from 'react';
 import * as ROUTES from '../../constants/routes';
 import { Link } from 'react-router-dom';
 
+import {AuthUserContext} from '../Session';
 import SignOutButton from '../SignOut';
 
 import { Nav, Navbar } from 'react-bootstrap';
 
-const Navigation = (authUser) => (
+const Navigation = () => (
+    <div>
             <Navbar sticky="top" bg="dark" variant="dark">
-            <Navbar.Brand href="#home">
-                <img
-                    alt=""
-                    src="/logo.svg"
-                    width="30"
-                    height="30"
-                    className="d-inline-block align-top"
-                />
-                {' React Bootstrap'}
-            </Navbar.Brand>
-            <Navbar.Collapse className="d-flex justify-content-end">
-                <Nav
-                    activeKey="/home"
-                    className="d-flex justify-content-end"
-                    onSelect={selectedKey => alert(`selected ${selectedKey}`)}
-                >
-                    <LandingItem/>
-                    <HomeItem/>
-                    <AccountItem/>
-                    <AdminItem/>
-                    <SessionState authUser={authUser}/>
-                </Nav>
-            </Navbar.Collapse>
-        </Navbar>
+                <Navbar.Brand href="#home">
+                    <img
+                        alt=""
+                        src="/logo.svg"
+                        width="30"
+                        height="30"
+                        className="d-inline-block align-top"
+                    />
+                    {' React Bootstrap'}
+                </Navbar.Brand>
+                <Navbar.Collapse className="d-flex justify-content-end">
+                    <Nav
+                        activeKey="/home"
+                        className="d-flex justify-content-end"
+                        onSelect={selectedKey => alert(`selected ${selectedKey}`)}
+                    >
+                        <LandingItem/>
+                        <HomeItem/>
+                        <AccountItem/>
+                        <AdminItem/>
+                        <AuthUserContext.Consumer>
+                            {authUser =>
+                                authUser ? <SignOutItem/> : <SignInItem/>
+                            }
+                        </AuthUserContext.Consumer>
+                    </Nav>
+                </Navbar.Collapse>
+            </Navbar>
+    </div>
 );
 
 const LandingItem = () => (
@@ -70,12 +77,5 @@ const SignOutItem = () => (
         <SignOutButton/>
     </Nav.Item>
 );
-
-function SessionState(props) {
-    if (props.authUser.authUser) {
-        return <SignOutItem/>;
-    }
-    return <SignInItem/>;
-}
 
 export default Navigation;
