@@ -1,5 +1,6 @@
 import app from 'firebase/app';
 import 'firebase/auth';
+import 'firebase/firestore';
 
 const firebaseConfig = {
     apiKey: process.env.REACT_APP_API_KEY,
@@ -15,11 +16,21 @@ class Firebase {
     constructor() {
         app.initializeApp(firebaseConfig);
 
+        // Helper
+        this.fieldValue = app.firestore.FieldValue;
+        this.emailAuthProvider = app.auth.EmailAuthProvider;
+
+        // Firebase APIs
         this.auth = app.auth();
+        this.db = app.firestore();
+
+        // Social Sign In Method Provider
+        this.googleProvider = new app.auth.GoogleAuthProvider();
+        this.facebookProvider = new app.auth.FacebookAuthProvider();
+        this.twitterProvider = new app.auth.TwitterAuthProvider();
     }
 
     // *** Auth API ***
-
     doCreateUserWithEmailAndPassword = (email, password) =>
         this.auth.createUserWithEmailAndPassword(email, password);
 
@@ -32,6 +43,10 @@ class Firebase {
 
     doPasswordUpdate = password =>
         this.auth.currentUser.updatePassword(password);
+
+    // *** User API ***
+    user = uid => this.db.doc(`users/${uid}`);
+    users = () => this.db.collection('users');
 }
 
 export default Firebase;
